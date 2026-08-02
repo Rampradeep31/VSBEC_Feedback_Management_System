@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: faculty-feedback-system
+
+  datasource:
+    # Supabase connection string. Use the "Session pooler" (port 5432) or the
+    # direct connection string from Project Settings -> Database -> Connection string,
+    # NOT the "Transaction pooler" (port 6543) unless you also set
+    # spring.datasource.hikari.data-source-properties.prepareThreshold=0 -
+    # Hibernate's server-side prepared statements don't play well with
+    # PgBouncer's transaction-mode pooling otherwise.
+    url: jdbc:postgresql://${DB_HOST:db.your-project-ref.supabase.co}:${DB_PORT:5432}/${DB_NAME:postgres}?sslmode=require
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:your-supabase-db-password}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # schema.supabase.sql should be run once via the Supabase SQL Editor before first boot.
+      # 'validate' checks the JPA entities match that schema without altering anything -
+      # safer for a hosted DB than 'update'. Switch to 'update' temporarily if you'd rather
+      # let Hibernate create the tables for you instead of running the SQL file.
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:VSBEC-Faculty-Feedback-System-Super-Secret-Key-Change-In-Production-2026}
+    admin-expiry-ms: 28800000      # 8 hours
+    student-expiry-ms: 3600000     # 1 hour (short-lived, single-purpose session)
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  reports:
+    output-dir: ${REPORTS_DIR:./generated-reports}
+    logo-path: ${LOGO_PATH:./assets/vsbec-logo.png}
+    soffice-path: ${SOFFICE_PATH:soffice}
+    college-name: "V.S.B. ENGINEERING COLLEGE, KARUR"
+    report-title: "STUDENTS’ FEEDBACK ON COURSE DELIVERY"
+    form-no: "Form No. 14b"
+    effective-date: "15/12/2017"
+  scoring:
+    rating-scale-max: 5     # student-facing rating scale (1-5 per spec)
+    percentage-multiplier: 20   # 5 x 20 = 100, mirrors the x10 row in the legacy Excel (10 x 10 = 100)
