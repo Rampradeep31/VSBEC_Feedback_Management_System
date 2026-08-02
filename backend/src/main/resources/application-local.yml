@@ -1,0 +1,48 @@
+# Local dev profile: embedded H2 in PostgreSQL-compatibility mode.
+# No external database required. Hibernate creates the schema from the JPA
+# entities and data.sql seeds the fixed question banks + default admin.
+# Run with: mvn spring-boot:run -Dspring-boot.run.profiles=local
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:feedback;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:VSBEC-Faculty-Feedback-System-Super-Secret-Key-Change-In-Production-2026}
+    admin-expiry-ms: 28800000
+    student-expiry-ms: 3600000
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  reports:
+    output-dir: ${REPORTS_DIR:./generated-reports}
+    logo-path: ${LOGO_PATH:./assets/vsbec-logo.png}
+    soffice-path: ${SOFFICE_PATH:soffice}
+    college-name: "V.S.B. ENGINEERING COLLEGE, KARUR"
+    report-title: "STUDENTS’ FEEDBACK ON COURSE DELIVERY"
+    form-no: "Form No. 14b"
+    effective-date: "15/12/2017"
+  scoring:
+    rating-scale-max: 5
+    percentage-multiplier: 20
