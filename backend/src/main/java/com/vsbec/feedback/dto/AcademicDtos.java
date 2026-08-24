@@ -1,6 +1,7 @@
 package com.vsbec.feedback.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AcademicDtos {
 
@@ -9,19 +10,19 @@ public class AcademicDtos {
     public record DepartmentRequest(@NotBlank String name, @NotBlank String shortCode) {}
 
     public record ClassRequest(
-            @NotBlank Long academicYearId,
-            @NotBlank Long departmentId,
+            @NotNull Long academicYearId,
+            @NotNull Long departmentId,
             @NotBlank String yearOfStudy,   // I, II, III, IV
             @NotBlank String section,
             @NotBlank String semester,      // ODD, EVEN
             @NotBlank String classLabel
     ) {}
 
-    public record FacultyRequest(@NotBlank String name, String email, @NotBlank Long departmentId) {}
+    public record FacultyRequest(@NotBlank String name, String email, @NotNull Long departmentId) {}
 
     public record SubjectRequest(
-            @NotBlank Long classId,
-            @NotBlank Long facultyId,
+            @NotNull Long classId,
+            @NotNull Long facultyId,
             @NotBlank String subjectName,
             String subjectCode,
             @NotBlank String subjectType,   // THEORY, LAB
