@@ -11,12 +11,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
 
     private final AdminRepository adminRepository;
     private final StudentRepository studentRepository;
@@ -59,5 +61,18 @@ public class AuthService {
 
         return new LoginResponse(token, "STUDENT", student.getName(), student.getId(),
                 student.getClassGroup().getId(), student.getClassGroup().getClassLabel());
+    }
+
+    @Transactional
+    public void changeAdminPassword(Long adminId, ChangePasswordRequest req) {
+        Admin admin = adminRepository.findById(adminId)
+                .orElseThrow(() -> ApiException.notFound("Admin user not found"));
+
+        if (!passwordEncoder.matches(req.currentPassword(), admin.getPasswordHash())) {
+            throw ApiException.unauthorized("Incorrect current password");
+        }
+
+        admin.setPasswordHash(passwordEncoder.encode(req.newPassword()));
+        adminRepository.save(admin);
     }
 }
