@@ -15,6 +15,8 @@ import Subjects from './pages/admin/Subjects'
 import Students from './pages/admin/Students'
 import FeedbackControl from './pages/admin/FeedbackControl'
 import Reports from './pages/admin/Reports'
+import ChangePassword from './pages/admin/ChangePassword'
+
 
 export default function App() {
   return (
@@ -57,6 +59,10 @@ export default function App() {
       <Route path="/admin/reports" element={
         <ProtectedRoute requiredRole="ADMIN"><Reports /></ProtectedRoute>
       } />
+      <Route path="/admin/change-password" element={
+        <ProtectedRoute requiredRole="ADMIN"><ChangePassword /></ProtectedRoute>
+      } />
+
 
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
