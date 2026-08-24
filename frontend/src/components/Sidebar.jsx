@@ -15,15 +15,15 @@ const links = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-60 bg-navy-800 text-navy-50 min-h-screen py-6 px-3 hidden md:block">
+    <aside className="w-60 bg-white border-r border-gray-100 text-slate-600 min-h-screen py-6 px-3 hidden md:block shadow-sm">
       <nav className="flex flex-col gap-1">
         {links.map((l) => (
           <NavLink
             key={l.to}
             to={l.to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                isActive ? 'bg-teal-600 text-white' : 'hover:bg-navy-700 text-navy-100'
+              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                isActive ? 'bg-teal-50 text-teal-700 shadow-sm' : 'hover:bg-slate-50 text-slate-600 hover:text-slate-900'
               }`
             }
           >
