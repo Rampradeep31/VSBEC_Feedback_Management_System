@@ -1,9 +1,13 @@
 package com.vsbec.feedback.controller;
 
 import com.vsbec.feedback.dto.AcademicDtos.*;
+import com.vsbec.feedback.dto.AuthDtos.ChangePasswordRequest;
 import com.vsbec.feedback.entity.*;
 import com.vsbec.feedback.service.AcademicService;
+import com.vsbec.feedback.service.AuthService;
 import com.vsbec.feedback.service.StudentImportService;
+import com.vsbec.feedback.util.RequestContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,8 @@ public class AdminAcademicController {
 
     private final AcademicService academicService;
     private final StudentImportService studentImportService;
+    private final AuthService authService;
+
 
     // ---------- Academic Years ----------
     @PostMapping("/academic-years")
@@ -116,5 +122,13 @@ public class AdminAcademicController {
                                                              @RequestParam("file") MultipartFile file) {
         ClassGroup cg = academicService.getClass(classId);
         return studentImportService.importStudents(file, cg);
+    }
+
+    @PutMapping("/change-password")
+    public Map<String, String> changePassword(HttpServletRequest request,
+                                               @Valid @RequestBody ChangePasswordRequest req) {
+        Long adminId = RequestContext.adminId(request);
+        authService.changeAdminPassword(adminId, req);
+        return Map.of("message", "Password changed successfully");
     }
 }
