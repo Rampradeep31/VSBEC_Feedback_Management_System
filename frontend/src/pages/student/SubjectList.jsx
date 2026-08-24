@@ -32,12 +32,12 @@ export default function SubjectList() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-navy-700 text-white px-6 py-4 flex items-center justify-between shadow-md">
+      <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between shadow-sm">
         <div>
-          <p className="text-xs uppercase tracking-wider text-teal-100/80">V.S.B. Engineering College, Karur</p>
-          <h1 className="text-lg font-semibold">Course Feedback — {user?.classLabel}</h1>
+          <p className="text-xs uppercase tracking-wider text-teal-700 font-semibold">V.S.B. Engineering College, Karur</p>
+          <h1 className="text-lg font-bold text-slate-800">Course Feedback — {user?.classLabel}</h1>
         </div>
-        <button onClick={() => { logout(); navigate('/login') }} className="text-sm bg-navy-600 hover:bg-navy-500 px-3 py-1.5 rounded-md">
+        <button onClick={() => { logout(); navigate('/login') }} className="text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors px-3 py-1.5 rounded-md font-semibold">
           Logout
         </button>
       </header>
