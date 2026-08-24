@@ -68,14 +68,14 @@ export default function Reports() {
             <button
               disabled={generating}
               onClick={() => handleDownload('docx')}
-              className="bg-navy-700 hover:bg-navy-600 disabled:opacity-60 text-white font-medium rounded-lg px-5 py-2.5 text-sm"
+              className="border border-teal-600 text-teal-700 hover:bg-teal-50 disabled:opacity-60 font-medium rounded-lg px-5 py-2.5 text-sm transition-all"
             >
               {generating ? 'Generating...' : 'Download DOCX'}
             </button>
             <button
               disabled={generating}
               onClick={() => handleDownload('pdf')}
-              className="bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-medium rounded-lg px-5 py-2.5 text-sm"
+              className="bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-medium rounded-lg px-5 py-2.5 text-sm transition-all shadow-sm"
             >
               {generating ? 'Generating...' : 'Download PDF'}
             </button>
