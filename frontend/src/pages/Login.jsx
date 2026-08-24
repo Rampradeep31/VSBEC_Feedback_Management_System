@@ -32,10 +32,10 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="bg-navy-700 text-white px-8 py-6 text-center">
-          <p className="text-xs uppercase tracking-widest text-teal-100/80 mb-1">V.S.B. Engineering College, Karur</p>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-slate-100">
+        <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-8 py-6 text-center">
+          <p className="text-xs uppercase tracking-widest text-teal-100/90 mb-1">V.S.B. Engineering College, Karur</p>
           <h1 className="text-xl font-bold">Faculty Feedback System</h1>
         </div>
 
