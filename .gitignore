@@ -19,3 +19,11 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local test & generated artifacts
+maven/
+report.docx
+report.pdf
+students.xlsx
+test_system.py
+backend/generated-reports/
