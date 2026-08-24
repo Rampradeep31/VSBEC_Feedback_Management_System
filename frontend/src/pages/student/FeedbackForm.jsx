@@ -61,13 +61,13 @@ export default function FeedbackForm() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-navy-700 text-white px-6 py-4 shadow-md">
-        <p className="text-xs uppercase tracking-wider text-teal-100/80">V.S.B. Engineering College, Karur</p>
-        <h1 className="text-lg font-semibold">Anonymous Course Feedback</h1>
+      <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
+        <p className="text-xs uppercase tracking-wider text-teal-700 font-semibold">V.S.B. Engineering College, Karur</p>
+        <h1 className="text-lg font-bold text-slate-800">Anonymous Course Feedback</h1>
       </header>
 
       <main className="max-w-2xl mx-auto p-6">
-        <button onClick={() => navigate('/student/feedback')} className="text-sm text-navy-600 mb-4 hover:underline">
+        <button onClick={() => navigate('/student/feedback')} className="text-sm text-slate-500 hover:text-slate-800 mb-4 hover:underline">
           ← Back to subjects
         </button>
 
@@ -113,7 +113,7 @@ export default function FeedbackForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="mt-2 bg-navy-700 hover:bg-navy-600 disabled:opacity-60 text-white font-semibold py-3 rounded-lg transition-colors"
+              className="mt-2 bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-semibold py-3 rounded-lg transition-colors"
             >
               {submitting ? 'Submitting...' : 'Submit Feedback'}
             </button>
