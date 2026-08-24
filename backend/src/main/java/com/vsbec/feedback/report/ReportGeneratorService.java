@@ -54,8 +54,12 @@ public class ReportGeneratorService {
     @Value("${app.reports.effective-date}")
     private String effectiveDate;
 
+    @Value("${app.reports.logo-path:./assets/vsbec-logo.png}")
+    private String logoPath;
+
     @Value("${app.scoring.percentage-multiplier:20}")
     private int percentageMultiplier;
+
 
     private static final String FONT = "Times New Roman";
 
@@ -132,11 +136,32 @@ public class ReportGeneratorService {
         cornerRun.setFontFamily(FONT);
         cornerRun.setFontSize(9);
 
+        // ---- Logo Crest ----
+        try {
+            if (logoPath != null) {
+                java.nio.file.Path path = java.nio.file.Path.of(logoPath);
+                if (java.nio.file.Files.exists(path)) {
+                    XWPFParagraph logoP = doc.createParagraph();
+                    logoP.setAlignment(ParagraphAlignment.CENTER);
+                    XWPFRun logoRun = logoP.createRun();
+                    int pictureType = path.getFileName().toString().toLowerCase().endsWith(".png")
+                            ? XWPFDocument.PICTURE_TYPE_PNG
+                            : XWPFDocument.PICTURE_TYPE_JPEG;
+                    try (var is = java.nio.file.Files.newInputStream(path)) {
+                        logoRun.addPicture(is, pictureType, path.getFileName().toString(), org.apache.poi.util.Units.toEMU(60), org.apache.poi.util.Units.toEMU(60));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Could not load logo: " + e.getMessage());
+        }
+
         // ---- College name ----
         XWPFParagraph collegeP = doc.createParagraph();
         collegeP.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun collegeRun = collegeP.createRun();
         collegeRun.setText(collegeName);
+
         collegeRun.setBold(true);
         collegeRun.setUnderline(UnderlinePatterns.SINGLE);
         collegeRun.setFontFamily(FONT);
