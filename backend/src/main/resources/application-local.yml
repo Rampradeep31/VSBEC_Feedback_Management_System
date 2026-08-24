@@ -37,7 +37,7 @@ app:
     allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
   reports:
     output-dir: ${REPORTS_DIR:./generated-reports}
-    logo-path: ${LOGO_PATH:./assets/vsbec-logo.png}
+    logo-path: ${LOGO_PATH:./assets/vsbec-logo.jpg}
     soffice-path: ${SOFFICE_PATH:soffice}
     college-name: "V.S.B. ENGINEERING COLLEGE, KARUR"
     report-title: "STUDENTS’ FEEDBACK ON COURSE DELIVERY"
